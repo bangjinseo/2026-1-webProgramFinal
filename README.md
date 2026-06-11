@@ -40,6 +40,12 @@ npm run build
 
 빌드 결과는 `dist` 폴더에 생성됩니다.
 
+*만약 실행이 안되는 경우 
+https://2026-1-web-program-final.vercel.app
+배포한 링크입니다. 여기서 확인해주세요.
+
+
+
 ## 주요 기능
 
 - Button Preview: 버튼 문구가 한 줄 컨트롤 안에 들어가는지 검증
