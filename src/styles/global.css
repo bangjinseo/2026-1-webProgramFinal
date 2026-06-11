@@ -4,6 +4,7 @@
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+  --highlight-color: rgba(0, 249, 42, 0.35);
   --line: rgba(0, 0, 0, 0.09);
   --muted: #6e6e73;
   --panel: rgba(255, 255, 255, 0.82);
@@ -31,6 +32,7 @@ body {
 }
 
 button,
+input,
 select,
 textarea {
   font: inherit;
@@ -52,9 +54,18 @@ select {
 .static-background {
   position: fixed;
   inset: 0;
-  background:
-    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.9), transparent 28%),
-    linear-gradient(135deg, #f7f8fa 0%, #dfe5ec 48%, #f4f6f8 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.static-background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(240, 240, 240, 0.65);
+  /*선명 1~0 흐림*/
 }
 
 .lab-window {
@@ -166,10 +177,10 @@ select {
 }
 
 .sidebar-icon {
-  width: 12px;
-  height: 12px;
-  border-radius: 3px;
-  background: linear-gradient(135deg, #8e8e93, #c7c7cc);
+  display: block;
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
 }
 
 .content-area {
@@ -186,7 +197,6 @@ select {
 }
 
 .content-hero,
-.notes-section,
 .how-it-works-section,
 .lab-controls,
 .preview-frame {
@@ -196,7 +206,6 @@ select {
 }
 
 .content-hero,
-.notes-section,
 .how-it-works-section {
   padding: 22px;
 }
@@ -306,6 +315,26 @@ p {
   margin-bottom: 16px;
 }
 
+.about-page .highlight-sentence {
+  background-image: linear-gradient(
+    var(--highlight-color) 0%,
+    var(--highlight-color) 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  border-radius: 7px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0.15em 0.2em;
+  transition:
+    background-size 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.about-page .highlight-sentence:hover {
+  background-size: 100% 100%;
+  filter: drop-shadow(0 0 4px rgba(0, 249, 42, 0.15));
+}
+
 .lab-controls {
   display: grid;
   gap: 16px;
@@ -314,7 +343,7 @@ p {
 
 .control-row {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 14px;
 }
 
@@ -330,6 +359,7 @@ p {
 }
 
 textarea,
+input,
 select {
   width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.13);
@@ -347,6 +377,20 @@ textarea {
 select {
   height: 38px;
   padding: 0 10px;
+}
+
+input {
+  height: 38px;
+  padding: 0 12px;
+}
+
+.secondary-control-button {
+  height: 38px;
+  border: 1px solid rgba(0, 0, 0, 0.13);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #1d1d1f;
+  font-weight: 600;
 }
 
 .preview-frame {
@@ -423,6 +467,127 @@ select {
 
 .metric-item dd {
   margin: 4px 0 0;
+  font-weight: 700;
+}
+
+.layout-feedback {
+  display: grid;
+  gap: 10px;
+}
+
+.risk-reason {
+  margin: 0;
+  color: #575454;
+  font-size: 14px;
+}
+
+.risk-reason strong {
+  color: #1d1d1f;
+}
+
+.recommendation-panel {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.recommendation-panel h3 {
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.recommendation-panel ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.recommendation-panel li {
+  color: #424245;
+  font-size: 14px;
+}
+
+.recommendation-panel li::before {
+  content: "✓";
+  margin-right: 8px;
+  color: var(--green);
+  font-weight: 700;
+}
+
+.language-comparison {
+  display: grid;
+  gap: 14px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.comparison-heading h3,
+.comparison-heading p {
+  margin-bottom: 0;
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+}
+
+.comparison-card {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.66);
+}
+
+.comparison-card-header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.comparison-card-header strong {
+  font-size: 14px;
+}
+
+.comparison-sample {
+  display: grid;
+  min-height: 58px;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #f5f6f8;
+}
+
+.comparison-sample-navigation .sim-nav,
+.comparison-sample-search .sim-search-input {
+  max-width: 100%;
+}
+
+.comparison-card dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.comparison-card dt {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.comparison-card dd {
+  margin: 2px 0 0;
+  font-size: 13px;
   font-weight: 700;
 }
 
@@ -548,6 +713,10 @@ select {
   color: #1d1d1f;
 }
 
+.sim-nav-compact {
+  max-width: 100%;
+}
+
 .sim-sidebar {
   width: 230px;
   padding: 14px;
@@ -565,8 +734,7 @@ select {
 
 .sim-sidebar button {
   display: grid;
-  grid-template-columns: 16px minmax(0, 1fr);
-  gap: 8px;
+  grid-template-columns: minmax(0, 1fr);
   align-items: center;
   width: 100%;
   min-height: 34px;
@@ -651,6 +819,11 @@ select {
 }
 
 .dual-metrics {
+  display: grid;
+  gap: 10px;
+}
+
+.dual-feedback {
   display: grid;
   gap: 10px;
 }

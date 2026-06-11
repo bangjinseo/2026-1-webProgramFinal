@@ -1,12 +1,18 @@
 import { menuItems } from '../data/labData.js';
+import fileCloseIcon from '../assets/Files-close.svg';
+import gradientBackground from '../assets/gradient-1 2.svg';
 
 export default function AppShell({ activePage, children, onSelectPage }) {
   const currentItem = menuItems.find((item) => item.id === activePage) ?? menuItems[0];
 
   return (
     <main className="app-shell">
-      <div className="static-background" aria-hidden="true" />
-      <section className="lab-window" aria-label="Apple Localization Lab">
+      <div
+        className="static-background"
+        style={{ backgroundImage: `url("${gradientBackground}")` }}
+        aria-hidden="true"
+      />
+      <section className="lab-window" aria-label="Localization Lab">
         <header className="top-bar">
           <div className="traffic-lights" aria-hidden="true">
             <span className="traffic-close" />
@@ -26,7 +32,7 @@ export default function AppShell({ activePage, children, onSelectPage }) {
                   onClick={() => onSelectPage(item.id)}
                   type="button"
                 >
-                  <span className="sidebar-icon" aria-hidden="true" />
+                  <img className="sidebar-icon" src={fileCloseIcon} alt="" aria-hidden="true" />
                   <span>{item.label}</span>
                 </button>
               ))}
