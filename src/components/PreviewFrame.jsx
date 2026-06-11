@@ -1,7 +1,7 @@
 import MetricsGrid from './MetricsGrid.jsx';
 import StatusBadge from './StatusBadge.jsx';
 
-export default function PreviewFrame({ analysis, children, description, title }) {
+export default function PreviewFrame({ analysis, children, description, feedback, title }) {
   return (
     <section className="preview-frame">
       <div className="preview-header">
@@ -14,6 +14,7 @@ export default function PreviewFrame({ analysis, children, description, title })
       <p className="preview-description">{description}</p>
       <div className="preview-stage">{children}</div>
       <MetricsGrid analysis={analysis} />
+      {feedback}
     </section>
   );
 }
