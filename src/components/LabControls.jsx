@@ -5,7 +5,9 @@ export default function LabControls({
   languageId,
   onButtonSizeChange,
   onLanguageChange,
+  onRandomExample,
   onTextChange,
+  randomCategories,
   showButtonSize = false,
   text,
 }) {
@@ -44,6 +46,15 @@ export default function LabControls({
               ))}
             </select>
           </label>
+        )}
+
+        {onRandomExample && (
+          <div className="field-group">
+            <span>Example</span>
+            <button className="secondary-control-button" type="button" onClick={() => onRandomExample(randomCategories)}>
+              Random Example
+            </button>
+          </div>
         )}
       </div>
     </section>

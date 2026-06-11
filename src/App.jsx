@@ -8,6 +8,7 @@ import NavigationPreview from './pages/NavigationPreview.jsx';
 import SidebarPreview from './pages/SidebarPreview.jsx';
 import SearchPreview from './pages/SearchPreview.jsx';
 import { languageOptions } from './data/labData.js';
+import { getEntryText, getRandomDictionaryEntry, translateMockText } from './services/translationService.js';
 import './styles/global.css';
 
 export default function App() {
@@ -21,9 +22,13 @@ export default function App() {
   );
 
   const handleLanguageChange = (nextLanguageId) => {
-    const nextLanguage = languageOptions.find((option) => option.id === nextLanguageId);
     setLanguageId(nextLanguageId);
-    if (nextLanguage) setText(nextLanguage.sample);
+    setText((currentText) => translateMockText(currentText, nextLanguageId));
+  };
+
+  const handleRandomExample = (categories) => {
+    const entry = getRandomDictionaryEntry(categories);
+    setText(getEntryText(entry, languageId));
   };
 
   const sharedProps = {
@@ -32,6 +37,7 @@ export default function App() {
     languageId,
     onButtonSizeChange: setButtonSize,
     onLanguageChange: handleLanguageChange,
+    onRandomExample: handleRandomExample,
     onTextChange: setText,
     text,
   };
